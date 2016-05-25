@@ -11,13 +11,6 @@ int main()
 {
 	std::vector <PBall> balls;
 
-	sf::Vector2f standardvel(-.1, .1);
-
-	PBall ball1(circle_size, circle_mass, 250, 250, standardvel);
-	PBall ball2(circle_size, circle_mass, 250, 500, standardvel);
-
-	
-
 	instructionText();
 	sf::RenderWindow window(sf::VideoMode(800, 640), "Das Engine");
 
@@ -32,20 +25,25 @@ int main()
 		}
 		
 		//Updates go here
-		bool collision;
-
-		ball1.updatePos();
-		ball2.updatePos();
-	
-		collision = ball1.isColliding(ball2);
-
-		if (collision)
+		for (int i = 0; i < balls.size(); i++)
 		{
-			std::cout << "HEYY!";
-			ball1.resolveCollision(ball2);
-			ball2.resolveCollision(ball1);
+			balls[i].updatePos();
+			balls[i].resolveEdges();
 		}
-	
+		for (int i = 0; i < balls.size(); i++)
+		{
+			for (int j = i + 1; j < balls.size(); j++)
+			{
+				bool collision = balls[i].isColliding(balls[j]);
+
+				if (collision)
+				{
+					balls[i].resolveCollision(balls[j]);
+					balls[j].resolveCollision(balls[i]);
+				}
+			}
+		}
+
 
 		window.clear();
 		//Stuff drawn here
@@ -53,8 +51,6 @@ int main()
 		{
 			window.draw(balls[i]);
 		}
-		window.draw(ball1);
-		window.draw(ball2);
 		window.display();
 		
 	}
