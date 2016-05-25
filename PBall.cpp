@@ -26,6 +26,16 @@ void PBall::updatePos() {
 	oldvelocity = velocity;
 }
 bool PBall::isColliding(PBall B) {
+	if (center.x < 300 && B.center.x > 500)
+	{
+		return false;
+	}
+	if (center.y < 290 && B.center.y > 450)
+	{
+		return false;
+	}
+
+
 	float distance = sqrt(((center.x - B.center.x) * (center.x - B.center.x)) + ((center.y - B.center.y) * (center.y - B.center.y)));
 	if (distance <= (getRadius() + B.getRadius()))
 	{
@@ -44,4 +54,24 @@ void PBall::resolveCollision(PBall B) {
 	setPosition(getPosition().x + Velx, getPosition().y + Vely);
 	velocity = VelocityO;
 
+}
+void PBall::resolveEdges() 
+{
+	float radius = getRadius();
+	if (center.x - radius <= 0 && velocity.x < 0)
+	{
+		velocity.x *= -1;
+	}
+	if (center.x + radius >= 800 && velocity.x > 0)
+	{
+		velocity.x *= -1;
+	}
+	if (center.y - radius <= 0 && velocity.y < 0)
+	{
+		velocity.y *= -1;
+	}
+	if (center.y + radius >= 640 && velocity.y > 0)
+	{
+		velocity.y *= -1;
+	}
 }
