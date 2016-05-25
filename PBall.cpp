@@ -47,8 +47,11 @@ bool PBall::isColliding(PBall B) {
 void PBall::resolveCollision(PBall B) {
 	oldvelocity = velocity;
 
-	float Velx = (((mass - B.mass) / (mass + B.mass)) * velocity.x) + (((2 * B.mass) / (mass + B.mass)) * B.oldvelocity.x);
-	float Vely = (((mass - B.mass) / (mass + B.mass)) * velocity.y) + (((2 * B.mass) / (mass + B.mass)) * B.oldvelocity.y);
+	//float Velx = (((mass - B.mass) / (mass + B.mass)) * velocity.x) + (((2 * B.mass) / (mass + B.mass)) * B.oldvelocity.x);
+	//float Vely = (((mass - B.mass) / (mass + B.mass)) * velocity.y) + (((2 * B.mass) / (mass + B.mass)) * B.oldvelocity.y);
+
+	float Velx = (((getRadius() - B.getRadius()) / (getRadius() + B.getRadius())) * velocity.x) + (((2 * B.getRadius()) / (getRadius() + B.getRadius())) * B.oldvelocity.x);
+	float Vely = (((getRadius() - B.getRadius()) / (getRadius() + B.getRadius())) * velocity.y) + (((2 * B.getRadius()) / (getRadius() + B.getRadius())) * B.oldvelocity.y);
 	
 	sf::Vector2f VelocityO(Velx,Vely);
 	setPosition(getPosition().x + Velx, getPosition().y + Vely);
