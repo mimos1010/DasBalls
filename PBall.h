@@ -16,7 +16,7 @@ public:
 	void updatePos();
 	bool isColliding(PBall B);
 	void resolveCollision(PBall B);
-
+	void resolveEdges();
 
 
 	~PBall();
